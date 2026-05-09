@@ -1,9 +1,13 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 const config: Config = {
   darkMode: "class",
   content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./hooks/**/*.{js,ts,jsx,tsx,mdx}",
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
+    "./data/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -14,8 +18,8 @@ const config: Config = {
         accent: { DEFAULT: "#3B82F6", foreground: "#fff" },
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["'Space Grotesk'", "Inter", "sans-serif"],
+        sans: ["Manrope", "system-ui", "sans-serif"],
+        display: ["'Space Grotesk'", "Manrope", "sans-serif"],
       },
       backgroundImage: {
         "grad-purple": "linear-gradient(135deg,#8B5CF6 0%,#3B82F6 100%)",
@@ -43,6 +47,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 };
 export default config;

@@ -1,16 +1,17 @@
 "use client";
+
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
 import {
   BarChart,
   Bar,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  ResponsiveContainer,
-  CartesianGrid,
-  Tooltip,
 } from "recharts";
-import { GraduationCap, Activity, Award, TrendingUp } from "lucide-react";
+import { Activity, Award, GraduationCap, TrendingUp } from "lucide-react";
 
 const ACTIVITY = [
   { day: "Mon", sessions: 1 },
@@ -23,128 +24,128 @@ const ACTIVITY = [
 ];
 
 const HISTORY = [
-  { career: "Product Manager", date: "Today", score: 87, emoji: "🚀" },
-  { career: "UI/UX Designer", date: "Yesterday", score: 74, emoji: "🎨" },
-  { career: "Software Engineer", date: "2d ago", score: 91, emoji: "💻" },
+  { career: "Product Manager", date: "Today", score: 87, emoji: "PM" },
+  { career: "UI/UX Designer", date: "Yesterday", score: 74, emoji: "UX" },
+  { career: "Software Engineer", date: "2 days ago", score: 91, emoji: "SE" },
+];
+
+const STATS = [
+  { icon: GraduationCap, label: "Careers explored", value: "5", tone: "text-indigo-200" },
+  { icon: Activity, label: "Sessions completed", value: "13", tone: "text-cyan-200" },
+  { icon: Award, label: "Badges unlocked", value: "8", tone: "text-emerald-200" },
+  { icon: TrendingUp, label: "Average alignment", value: "84%", tone: "text-amber-200" },
 ];
 
 export default function ParentDashboard() {
   return (
-    <main className="relative min-h-screen pt-28 pb-20 px-4">
+    <main className="relative min-h-screen px-4 pb-20 pt-28">
       <Navbar />
-      <div className="max-w-6xl mx-auto">
-        <motion.div
+
+      <div className="mx-auto w-full max-w-6xl">
+        <motion.header
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
         >
-          <div className="text-violet-400 text-sm font-semibold">PARENT DASHBOARD</div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold mt-1">
-            Aarav&apos;s Career Journey
-          </h1>
-          <p className="text-white/60 mt-2">Class 11 · CBSE · Member since Jan 2025</p>
-        </motion.div>
+          <div>
+            <div className="section-kicker">Parent Dashboard</div>
+            <h1 className="section-title">Aarav&apos;s Career Journey</h1>
+            <p className="mt-2 text-sm text-white/60">Class 11, CBSE, joined January 2025</p>
+          </div>
 
-        {/* Stats */}
-        <div className="grid md:grid-cols-4 gap-4 mb-6">
-          {[
-            { icon: GraduationCap, label: "Careers Explored", v: "5", c: "text-violet-400" },
-            { icon: Activity, label: "Total Sessions", v: "13", c: "text-blue-400" },
-            { icon: Award, label: "Badges Earned", v: "8", c: "text-emerald-400" },
-            { icon: TrendingUp, label: "Avg. Alignment", v: "84%", c: "text-pink-400" },
-          ].map((s, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
+          <div className="glass rounded-2xl px-4 py-3 text-xs text-white/70">
+            Last sync: today at 7:45 PM
+          </div>
+        </motion.header>
+
+        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {STATS.map((stat, index) => (
+            <motion.article
+              key={stat.label}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              className="glass rounded-2xl p-5"
+              transition={{ delay: index * 0.06, duration: 0.35 }}
+              className="glass surface-ring rounded-2xl p-5"
             >
-              <s.icon size={20} className={s.c} />
-              <div className="text-3xl font-bold mt-2">{s.v}</div>
-              <div className="text-xs text-white/50 mt-1">{s.label}</div>
-            </motion.div>
+              <stat.icon size={18} className={stat.tone} />
+              <div className="mt-2 font-display text-3xl font-semibold">{stat.value}</div>
+              <div className="mt-1 text-xs uppercase tracking-[0.15em] text-white/55">{stat.label}</div>
+            </motion.article>
           ))}
-        </div>
+        </section>
 
-        <div className="grid lg:grid-cols-2 gap-5 mb-6">
-          {/* Activity chart */}
-          <div className="glass rounded-3xl p-6">
-            <h3 className="font-display font-bold text-lg mb-4">Weekly Activity</h3>
+        <section className="mt-5 grid gap-5 lg:grid-cols-2">
+          <article className="glass surface-ring rounded-3xl p-6">
+            <h2 className="mb-4 font-display text-xl font-semibold">Weekly activity</h2>
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={ACTIVITY}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,.06)" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
                 <XAxis dataKey="day" stroke="rgba(255,255,255,.5)" fontSize={12} />
                 <YAxis stroke="rgba(255,255,255,.5)" fontSize={12} />
                 <Tooltip
+                  cursor={{ fill: "rgba(99,102,241,0.12)" }}
                   contentStyle={{
-                    background: "rgba(20,10,40,.9)",
-                    border: "1px solid rgba(139,92,246,.3)",
+                    background: "rgba(15,23,42,0.95)",
+                    border: "1px solid rgba(56,189,248,0.28)",
                     borderRadius: 12,
                   }}
                 />
                 <Bar dataKey="sessions" fill="url(#barGrad)" radius={8} />
                 <defs>
                   <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#8B5CF6" />
-                    <stop offset="100%" stopColor="#3B82F6" />
+                    <stop offset="0%" stopColor="#6366f1" />
+                    <stop offset="100%" stopColor="#0ea5e9" />
                   </linearGradient>
                 </defs>
               </BarChart>
             </ResponsiveContainer>
-          </div>
+          </article>
 
-          {/* Recent simulations */}
-          <div className="glass rounded-3xl p-6">
-            <h3 className="font-display font-bold text-lg mb-4">Recent Simulations</h3>
-            <div className="space-y-3">
-              {HISTORY.map((h, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-3 p-3 rounded-2xl bg-white/5 border border-white/5"
-                >
-                  <div className="text-2xl">{h.emoji}</div>
-                  <div className="flex-1">
-                    <div className="font-semibold text-sm">{h.career}</div>
-                    <div className="text-xs text-white/50">{h.date}</div>
+          <article className="glass surface-ring rounded-3xl p-6">
+            <h2 className="mb-4 font-display text-xl font-semibold">Recent simulations</h2>
+            <div className="space-y-2.5">
+              {HISTORY.map((entry) => (
+                <div key={`${entry.career}-${entry.date}`} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/20 text-xs font-semibold text-indigo-100">
+                    {entry.emoji}
                   </div>
-                  <div
-                    className={`font-bold ${
-                      h.score >= 85 ? "text-emerald-400" : "text-yellow-400"
-                    }`}
-                  >
-                    {h.score}%
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-sm font-semibold text-white/92">{entry.career}</div>
+                    <div className="text-xs text-white/50">{entry.date}</div>
+                  </div>
+                  <div className={entry.score >= 85 ? "font-semibold text-emerald-300" : "font-semibold text-amber-300"}>
+                    {entry.score}%
                   </div>
                 </div>
               ))}
             </div>
-          </div>
-        </div>
+          </article>
+        </section>
 
-        {/* AI Recommendation */}
-        <div className="glass-strong rounded-3xl p-6 btn-glow">
-          <div className="text-violet-300 text-xs font-bold">AI RECOMMENDATIONS</div>
-          <h3 className="font-display font-bold text-2xl mt-1">
-            Aarav shows strong fit for strategic, leadership-driven roles.
-          </h3>
-          <p className="text-white/70 text-sm mt-3">
-            Based on 13 simulations, his top alignment is{" "}
-            <b className="text-white">Software Engineering (91%)</b> followed by Product
-            Management (87%). We recommend exploring{" "}
-            <b className="text-white">CS + Business</b> tracks (BBA + B.Tech dual degrees,
-            IITs with management minors).
+        <section className="mt-5 glass-strong surface-ring rounded-3xl p-6 md:p-7">
+          <div className="section-kicker">AI Recommendation</div>
+          <h2 className="mt-2 font-display text-2xl font-semibold md:text-3xl">
+            Aarav currently fits strategic, systems-thinking roles.
+          </h2>
+          <p className="mt-3 max-w-4xl text-sm leading-relaxed text-white/70">
+            Based on 13 simulations, top alignment sits in Software Engineering (91%) and Product Management
+            (87%). Suggested next step: explore blended CS + business tracks where technical depth and decision
+            leadership compound together.
           </p>
-          <div className="flex flex-wrap gap-2 mt-4">
-            {["IIT (CS)", "BITS Pilani", "ISB Young Leaders", "Ashoka — CS+Business"].map((p) => (
-              <span
-                key={p}
-                className="text-xs px-3 py-1.5 rounded-full bg-violet-500/20 border border-violet-400/30"
-              >
-                {p}
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            {[
+              "IIT Computer Science",
+              "BITS Pilani",
+              "ISB Young Leaders",
+              "Ashoka CS + Business",
+            ].map((item) => (
+              <span key={item} className="rounded-full border border-cyan-300/30 bg-cyan-500/10 px-3 py-1.5 text-xs text-cyan-50">
+                {item}
               </span>
             ))}
           </div>
-        </div>
+        </section>
       </div>
     </main>
   );

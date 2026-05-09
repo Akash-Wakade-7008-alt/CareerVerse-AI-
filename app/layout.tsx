@@ -3,14 +3,15 @@ import "./globals.css";
 import FloatingBlobs from "@/components/FloatingBlobs";
 
 export const metadata: Metadata = {
-  title: "CareerVerse AI — Experience careers before choosing them",
-  description: "AI-powered career simulations for students. Live the job before picking it.",
+  title: "CareerVerse AI | Explore Careers in Simulated Workdays",
+  description:
+    "CareerVerse AI helps students experience careers through immersive simulations, skill analytics, and personalized alignment reports.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="font-sans bg-background text-foreground">
+    <html lang="en" data-scroll-behavior="smooth">
+      <body className="bg-background text-foreground font-sans">
         <FloatingBlobs />
         {children}
       </body>

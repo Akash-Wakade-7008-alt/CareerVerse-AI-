@@ -1,48 +1,67 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { Brain, Gamepad2, BarChart3, Sparkles } from "lucide-react";
+import { BarChart3, Brain, Gamepad2, Sparkles } from "lucide-react";
 
 const FEATURES = [
-  { icon: Brain, title: "AI-Generated Scenarios", desc: "Every simulation is unique. Powered by Gemini 2.0 Flash." },
-  { icon: Gamepad2, title: "Make Real Decisions", desc: "Face workplace dilemmas — see real consequences unfold." },
-  { icon: BarChart3, title: "Skill Analytics", desc: "Get a personality radar across 5 critical skills." },
-  { icon: Sparkles, title: "Career Fit Report", desc: "AI-generated alignment score for every career path." },
+  {
+    icon: Brain,
+    title: "Adaptive Simulation Engine",
+    desc: "Gemini generates scenario pressure and consequences in real time, so each run feels custom to the student.",
+  },
+  {
+    icon: Gamepad2,
+    title: "Decision-First Journey",
+    desc: "Students choose under realistic ambiguity, then immediately see team reactions, tradeoffs, and execution risk.",
+  },
+  {
+    icon: BarChart3,
+    title: "Skill Signal Layer",
+    desc: "Every decision updates score vectors across leadership, communication, creativity, analysis, and decision quality.",
+  },
+  {
+    icon: Sparkles,
+    title: "Actionable Career Report",
+    desc: "Post-simulation summaries translate behavior into clear strengths, growth edges, and next career experiments.",
+  },
 ];
 
 export default function FeatureSection() {
   return (
-    <section className="py-32 px-4">
-      <div className="max-w-6xl mx-auto">
+    <section className="section-shell">
+      <div className="section-wrap">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          viewport={{ once: true, amount: 0.35 }}
+          className="mx-auto max-w-3xl text-center"
         >
-          <div className="text-violet-400 text-sm font-semibold mb-3">HOW IT WORKS</div>
-          <h2 className="font-display text-4xl md:text-6xl font-bold">
-            Not another <span className="text-gradient">chatbot.</span>
+          <div className="section-kicker">How The Platform Works</div>
+          <h2 className="section-title">
+            This is not career content.
+            <span className="text-gradient"> This is career rehearsal.</span>
           </h2>
-          <p className="text-white/60 mt-4 max-w-xl mx-auto">
-            CareerVerse is an immersive simulation engine — you don&apos;t read about jobs, you live them.
+          <p className="section-copy mx-auto">
+            The product is designed like a mission control loop: context, pressure, choice, consequences,
+            and feedback that compounds.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {FEATURES.map((f, i) => (
+        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {FEATURES.map((feature, i) => (
             <motion.div
-              key={f.title}
-              initial={{ opacity: 0, y: 30 }}
+              key={feature.title}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="glass rounded-3xl p-6 hover:border-violet-400/40 transition group"
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ delay: i * 0.08, duration: 0.42 }}
+              className="glass surface-ring group rounded-3xl p-6"
             >
-              <div className="w-12 h-12 rounded-2xl bg-grad-purple flex items-center justify-center mb-4 group-hover:scale-110 transition">
-                <f.icon size={20} />
+              <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-br from-indigo-500/85 to-sky-500/80 p-3 text-white transition group-hover:scale-105">
+                <feature.icon size={20} />
               </div>
-              <h3 className="font-display font-bold text-lg">{f.title}</h3>
-              <p className="text-white/60 text-sm mt-2">{f.desc}</p>
+              <h3 className="font-display text-lg font-semibold">{feature.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/70">{feature.desc}</p>
             </motion.div>
           ))}
         </div>

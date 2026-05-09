@@ -1,32 +1,35 @@
 "use client";
-import Navbar from "@/components/Navbar";
+
 import CareerCard from "@/components/CareerCard";
+import Navbar from "@/components/Navbar";
 import { CAREERS } from "@/data/careers";
 import { motion } from "framer-motion";
 
 export default function CareersPage() {
   return (
-    <main className="relative min-h-screen pt-32 pb-20 px-4">
+    <main className="relative min-h-screen px-4 pb-24 pt-28 md:pt-32">
       <Navbar />
-      <div className="max-w-6xl mx-auto">
+
+      <div className="mx-auto w-full max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.45 }}
+          className="mx-auto max-w-3xl text-center"
         >
-          <div className="text-violet-400 text-sm font-semibold mb-3">CHOOSE YOUR ADVENTURE</div>
-          <h1 className="font-display text-5xl md:text-7xl font-bold">
-            Which career do you want to{" "}
-            <span className="text-gradient">live today?</span>
+          <div className="section-kicker">Choose Your Simulation</div>
+          <h1 className="section-title">
+            Which future should we
+            <span className="text-gradient"> pressure-test today?</span>
           </h1>
-          <p className="text-white/60 mt-4 max-w-xl mx-auto">
-            Each simulation is ~10 minutes. Real decisions. Real consequences. Zero pressure.
+          <p className="section-copy mx-auto">
+            Every simulation takes around 10 minutes and captures how students make decisions under realistic work tension.
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {CAREERS.map((c, i) => (
-            <CareerCard key={c.id} career={c} idx={i} />
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {CAREERS.map((career, index) => (
+            <CareerCard key={career.id} career={career} idx={index} />
           ))}
         </div>
       </div>

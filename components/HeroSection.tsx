@@ -1,75 +1,86 @@
 "use client";
+
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, PlayCircle, Sparkles } from "lucide-react";
+
+const STATS = [
+  { n: "12K+", l: "Students" },
+  { n: "43K", l: "Choices Simulated" },
+  { n: "98%", l: "Would Recommend" },
+];
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 pt-24">
-      <div className="max-w-5xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-xs md:text-sm mb-8"
-        >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          AI-Powered Career Simulations · Built for Gen-Z
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05]"
-        >
-          Don&apos;t choose a career <br />
-          <span className="text-gradient">blindly.</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="mt-6 text-lg md:text-xl text-white/70 max-w-2xl mx-auto"
-        >
-          Experience real careers through immersive AI simulations. Make decisions, get evaluated, discover your perfect path.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
-        >
-          <Link
-            href="/careers"
-            className="group px-8 py-4 rounded-2xl bg-grad-purple font-semibold flex items-center justify-center gap-2 btn-glow"
+    <section className="relative flex min-h-screen items-center px-4 pt-24 pb-20">
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="mx-auto max-w-4xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.42 }}
+            className="glass surface-ring mx-auto mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2"
           >
-            Start Exploring
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition" />
-          </Link>
-          <button className="px-8 py-4 rounded-2xl glass font-semibold flex items-center justify-center gap-2 hover:bg-white/10 transition">
-            <Play size={16} /> Watch Demo
-          </button>
-        </motion.div>
+            <Sparkles size={13} className="text-sky-300" />
+            <span className="text-xs tracking-wide text-white/80 md:text-sm">
+              Career Intelligence Layer for Students and Families
+            </span>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="mt-16 grid grid-cols-3 gap-4 max-w-2xl mx-auto text-center"
-        >
-          {[
-            { n: "12K+", l: "Students" },
-            { n: "5", l: "Careers" },
-            { n: "98%", l: "Loved It" },
-          ].map((s) => (
-            <div key={s.l} className="glass rounded-2xl p-4">
-              <div className="text-2xl md:text-3xl font-bold text-gradient">{s.n}</div>
-              <div className="text-xs text-white/60 mt-1">{s.l}</div>
-            </div>
-          ))}
-        </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.08, duration: 0.52 }}
+            className="font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl md:text-7xl"
+          >
+            Future decisions should feel
+            <span className="text-gradient"> data-backed, not random.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.24, duration: 0.5 }}
+            className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg"
+          >
+            Run cinematic AI workday simulations, make tough calls, and get a transparent skill map
+            before committing years to a career path.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.45 }}
+            className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row"
+          >
+            <Link
+              href="/careers"
+              className="btn-glow group inline-flex items-center justify-center gap-2 rounded-2xl bg-grad-purple px-8 py-4 font-semibold text-white"
+            >
+              Start a Simulation
+              <ArrowRight size={17} className="transition group-hover:translate-x-1" />
+            </Link>
+
+            <button className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-slate-950/40 px-8 py-4 font-semibold text-white/90 transition hover:bg-white/10">
+              <PlayCircle size={17} />
+              Product Walkthrough
+            </button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="mt-14 grid grid-cols-1 gap-3 sm:grid-cols-3"
+          >
+            {STATS.map((stat) => (
+              <div key={stat.l} className="glass surface-ring rounded-2xl px-5 py-4">
+                <div className="text-2xl font-semibold text-gradient md:text-3xl">{stat.n}</div>
+                <div className="mt-1 text-xs uppercase tracking-[0.18em] text-white/55">{stat.l}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,7 +1,8 @@
 "use client";
-import { useCallback, useState } from "react";
-import { SimMessage, SimulationState, SkillScores } from "@/types";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 import { applyDelta } from "@/services/simulationService";
+import { SimMessage, SimulationState, SkillScores } from "@/types";
 
 const INITIAL_SCORES: SkillScores = {
   leadership: 50,
@@ -11,118 +12,163 @@ const INITIAL_SCORES: SkillScores = {
   decisionMaking: 50,
 };
 
+const MAX_STEPS = 5;
+
+type GeminiHistoryEntry = {
+  role: string;
+  parts: Array<{ text: string }>;
+};
+
 export function useSimulation(career: string) {
   const [state, setState] = useState<SimulationState>({
     career,
     step: 0,
-    maxSteps: 5,
+    maxSteps: MAX_STEPS,
     xp: 0,
     level: 1,
     streak: 1,
-    scores: INITIAL_SCORES,
+    scores: { ...INITIAL_SCORES },
     messages: [],
     badges: [],
   });
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
-  const [geminiHistory, setGeminiHistory] = useState<Array<{role: string; parts: Array<{text: string}>}>>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [geminiHistory, setGeminiHistory] = useState<GeminiHistoryEntry[]>([]);
 
-  const turn = useCallback(async (choice: string | null) => {
-    setLoading(true);
+  const loadingRef = useRef(false);
+  const doneRef = useRef(false);
 
-    if (choice) {
-      setState((s) => ({
-        ...s,
-        messages: [
-          ...s.messages,
-          {
+  useEffect(() => {
+    loadingRef.current = loading;
+  }, [loading]);
+
+  useEffect(() => {
+    doneRef.current = done;
+  }, [done]);
+
+  const turn = useCallback(
+    async (choice: string | null) => {
+      if (loadingRef.current || doneRef.current) {
+        return;
+      }
+
+      loadingRef.current = true;
+      setLoading(true);
+      setError(null);
+
+      if (choice) {
+        setState((current) => ({
+          ...current,
+          messages: [
+            ...current.messages,
+            {
+              id: crypto.randomUUID(),
+              role: "user",
+              content: choice,
+              timestamp: Date.now(),
+            },
+          ],
+        }));
+      }
+
+      try {
+        const currentStep = state.step;
+        const response = await fetch("/api/simulate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            choice,
+            step: currentStep,
+            careerId: career,
+            history: geminiHistory,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Simulation request failed with status ${response.status}`);
+        }
+
+        const payload = await response.json();
+        const data = payload?.data;
+        const source = payload?.source;
+
+        if (!data) {
+          throw new Error("Simulation payload missing data");
+        }
+
+        if (source === "gemini") {
+          const userMessage = choice
+            ? `Student chose: "${choice}". Generate next scenario in JSON.`
+            : `Start the simulation for career: ${career}. Generate the FIRST scenario in strict JSON.`;
+
+          setGeminiHistory((history) => [
+            ...history,
+            { role: "user", parts: [{ text: userMessage }] },
+            { role: "model", parts: [{ text: JSON.stringify(data) }] },
+          ]);
+        }
+
+        const nextMessages: SimMessage[] = [];
+
+        if (data.narrative) {
+          nextMessages.push({
             id: crypto.randomUUID(),
-            role: "user",
-            content: choice,
+            role: "system",
+            content: data.narrative,
             timestamp: Date.now(),
-          },
-        ],
-      }));
-    }
+          });
+        }
 
-    try {
-      const currentStep = state.step;
-      const res = await fetch("/api/simulate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          choice,
-          step: currentStep,
-          careerId: career,
-          history: geminiHistory,
-        }),
-      });
-      const { data, source } = await res.json();
+        (data.slack || []).forEach((slackMessage: { sender: string; message: string }) => {
+          nextMessages.push({
+            id: crypto.randomUUID(),
+            role: "slack",
+            content: slackMessage.message,
+            meta: { sender: slackMessage.sender },
+            timestamp: Date.now(),
+          });
+        });
 
-      // Update gemini history for context
-      if (source === "gemini") {
-        const userMsg = choice
-          ? `Student chose: "${choice}". Generate next scenario in JSON.`
-          : `Start the simulation for career: ${career}. Generate the FIRST scenario in strict JSON.`;
-        setGeminiHistory((h) => [
-          ...h,
-          { role: "user", parts: [{ text: userMsg }] },
-          { role: "model", parts: [{ text: JSON.stringify(data) }] },
-        ]);
-      }
-
-      const newMsgs: SimMessage[] = [];
-
-      if (data.narrative) {
-        newMsgs.push({
+        nextMessages.push({
           id: crypto.randomUUID(),
-          role: "system",
-          content: data.narrative,
+          role: "ai",
+          content: data.scene,
+          options: data.isFinal ? undefined : data.options,
+          meta: { metric: data.metric },
           timestamp: Date.now(),
         });
-      }
 
-      (data.slack || []).forEach((s: { sender: string; message: string }) => {
-        newMsgs.push({
-          id: crypto.randomUUID(),
-          role: "slack",
-          content: s.message,
-          meta: { sender: s.sender },
-          timestamp: Date.now(),
+        setState((current) => {
+          const nextXp = current.xp + 25;
+          return {
+            ...current,
+            messages: [...current.messages, ...nextMessages],
+            scores: applyDelta(current.scores, data.scoreDelta || {}),
+            xp: nextXp,
+            level: Math.floor(nextXp / 100) + 1,
+            step: current.step + 1,
+            badges:
+              data.badge && !current.badges.includes(data.badge)
+                ? [...current.badges, data.badge]
+                : current.badges,
+          };
         });
-      });
 
-      newMsgs.push({
-        id: crypto.randomUUID(),
-        role: "ai",
-        content: data.scene,
-        options: data.isFinal ? undefined : data.options,
-        meta: { metric: data.metric },
-        timestamp: Date.now(),
-      });
-
-      setState((s) => ({
-        ...s,
-        messages: [...s.messages, ...newMsgs],
-        scores: applyDelta(s.scores, data.scoreDelta || {}),
-        xp: s.xp + 25,
-        level: Math.floor((s.xp + 25) / 100) + 1,
-        step: s.step + 1,
-        badges:
-          data.badge && !s.badges.includes(data.badge)
-            ? [...s.badges, data.badge]
-            : s.badges,
-      }));
-
-      if (data.isFinal || currentStep + 1 >= state.maxSteps) {
-        setDone(true);
+        if (data.isFinal || currentStep + 1 >= MAX_STEPS) {
+          doneRef.current = true;
+          setDone(true);
+        }
+      } catch (requestError) {
+        console.error("Simulation error:", requestError);
+        setError("Could not generate the next scenario. Please try again.");
+      } finally {
+        loadingRef.current = false;
+        setLoading(false);
       }
-    } catch (err) {
-      console.error("Simulation error:", err);
-    } finally {
-      setLoading(false);
-    }
-  }, [state.step, state.maxSteps, career, geminiHistory]);
+    },
+    [career, geminiHistory, state.step]
+  );
 
-  return { state, loading, done, turn };
+  return { state, loading, done, turn, error };
 }

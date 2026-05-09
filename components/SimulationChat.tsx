@@ -1,9 +1,10 @@
 "use client";
+
 import { useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { TrendingUp, TrendingDown, Volume2 } from "lucide-react";
-import SlackMessage from "./SlackMessage";
+import { AnimatePresence, motion } from "framer-motion";
+import { TrendingDown, TrendingUp, Volume2 } from "lucide-react";
 import { SimMessage } from "@/types";
+import SlackMessage from "./SlackMessage";
 
 type Props = {
   messages: SimMessage[];
@@ -19,63 +20,72 @@ export default function SimulationChat({ messages, onChoose, loading }: Props) {
   }, [messages, loading]);
 
   const speak = (text: string) => {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
+    if (typeof window === "undefined" || !window.speechSynthesis) {
+      return;
+    }
+
     window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = 1.05;
-    u.pitch = 1;
-    window.speechSynthesis.speak(u);
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.02;
+    utterance.pitch = 1;
+    window.speechSynthesis.speak(utterance);
   };
 
   return (
-    <div ref={ref} className="flex-1 overflow-y-auto px-4 py-6 space-y-5">
+    <div ref={ref} className="flex-1 space-y-5 overflow-y-auto px-4 pb-8 pt-6 md:px-0">
       <AnimatePresence>
-        {messages.map((m) => (
+        {messages.map((message) => (
           <motion.div
-            key={m.id}
+            key={message.id}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.28 }}
           >
-            {m.role === "ai" && (
+            {message.role === "ai" && (
               <div className="max-w-2xl">
-                {m.meta?.metric && (
-                  <div className="inline-flex items-center gap-2 glass rounded-full px-3 py-1 mb-2 text-xs">
-                    <span className="text-white/50">{m.meta.metric.label}</span>
-                    <span className="font-bold">{m.meta.metric.value}</span>
-                    {m.meta.metric.trend === "up" ? (
-                      <TrendingUp size={12} className="text-emerald-400" />
+                {message.meta?.metric && (
+                  <div className="glass mb-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs text-white/80">
+                    <span className="text-white/60">{message.meta.metric.label}</span>
+                    <span className="font-semibold">{message.meta.metric.value}</span>
+                    {message.meta.metric.trend === "up" ? (
+                      <TrendingUp size={12} className="text-emerald-300" />
                     ) : (
-                      <TrendingDown size={12} className="text-red-400" />
+                      <TrendingDown size={12} className="text-rose-300" />
                     )}
                   </div>
                 )}
-                <div className="glass-strong rounded-3xl rounded-tl-md p-5 relative">
+
+                <div className="glass-strong surface-ring relative rounded-3xl rounded-tl-md p-5">
                   <button
-                    onClick={() => speak(m.content)}
-                    className="absolute top-3 right-3 text-white/40 hover:text-white transition"
+                    onClick={() => speak(message.content)}
+                    className="absolute right-3 top-3 rounded-md p-1 text-white/46 transition hover:bg-white/10 hover:text-white"
                     aria-label="Read aloud"
+                    type="button"
                   >
                     <Volume2 size={14} />
                   </button>
-                  <div className="text-sm md:text-base leading-relaxed whitespace-pre-wrap pr-6">
-                    {m.content}
+
+                  <div className="pr-7 text-sm leading-relaxed text-white/90 md:text-[15px]">
+                    {message.content}
                   </div>
-                  {m.options && (
+
+                  {message.options && (
                     <div className="mt-5 grid gap-2">
-                      {m.options.map((opt, i) => (
+                      {message.options.map((option, optionIndex) => (
                         <motion.button
-                          key={i}
+                          key={option}
                           whileHover={{ scale: 1.01, x: 2 }}
                           whileTap={{ scale: 0.99 }}
-                          onClick={() => onChoose(opt)}
+                          onClick={() => onChoose(option)}
                           disabled={loading}
-                          className="text-left p-3 rounded-2xl bg-white/5 border border-white/10 hover:border-violet-400/60 hover:bg-violet-500/10 transition disabled:opacity-40 disabled:cursor-not-allowed"
+                          type="button"
+                          className="rounded-2xl border border-white/20 bg-slate-950/40 p-3 text-left transition hover:border-sky-400/50 hover:bg-sky-500/10 disabled:cursor-not-allowed disabled:opacity-45"
                         >
-                          <span className="text-xs text-violet-300 font-bold mr-2">
-                            {String.fromCharCode(65 + i)}.
+                          <span className="mr-2 text-xs font-semibold uppercase tracking-[0.15em] text-sky-300">
+                            {String.fromCharCode(65 + optionIndex)}
                           </span>
-                          <span className="text-sm">{opt}</span>
+                          <span className="text-sm text-white/90">{option}</span>
                         </motion.button>
                       ))}
                     </div>
@@ -84,33 +94,29 @@ export default function SimulationChat({ messages, onChoose, loading }: Props) {
               </div>
             )}
 
-            {m.role === "slack" && (
-              <SlackMessage sender={m.meta?.sender || "Team"} message={m.content} />
-            )}
+            {message.role === "slack" && <SlackMessage sender={message.meta?.sender ?? "Team"} message={message.content} />}
 
-            {m.role === "user" && (
+            {message.role === "user" && (
               <div className="flex justify-end">
-                <div className="bg-grad-purple rounded-3xl rounded-tr-md px-5 py-3 max-w-md text-sm btn-glow">
-                  {m.content}
+                <div className="btn-glow max-w-md rounded-3xl rounded-tr-md bg-grad-purple px-5 py-3 text-sm text-white">
+                  {message.content}
                 </div>
               </div>
             )}
 
-            {m.role === "system" && (
-              <div className="text-center text-xs text-violet-300/70 italic py-2">
-                ✦ {m.content} ✦
-              </div>
+            {message.role === "system" && (
+              <div className="py-2 text-center text-xs italic text-cyan-200/70">{message.content}</div>
             )}
           </motion.div>
         ))}
       </AnimatePresence>
 
       {loading && (
-        <div className="flex gap-1.5 items-center text-violet-300 text-sm">
-          <span className="w-2 h-2 rounded-full bg-violet-400 animate-bounce" />
-          <span className="w-2 h-2 rounded-full bg-violet-400 animate-bounce" style={{ animationDelay: ".15s" }} />
-          <span className="w-2 h-2 rounded-full bg-violet-400 animate-bounce" style={{ animationDelay: ".3s" }} />
-          <span className="ml-2 text-white/60">AI is thinking…</span>
+        <div className="glass inline-flex items-center gap-2 rounded-full px-3 py-2 text-xs text-white/70">
+          <span className="h-2 w-2 animate-bounce rounded-full bg-sky-300" />
+          <span className="h-2 w-2 animate-bounce rounded-full bg-sky-300 [animation-delay:.12s]" />
+          <span className="h-2 w-2 animate-bounce rounded-full bg-sky-300 [animation-delay:.24s]" />
+          <span className="ml-1">AI is computing the next branch...</span>
         </div>
       )}
     </div>
