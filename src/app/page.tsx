@@ -46,7 +46,6 @@ export default function Home() {
           <div className="flex flex-col items-center gap-2 md:items-end">
             <div className="flex items-center gap-3 text-xs" style={{ color: "var(--cv-text-secondary)" }}>
               <Link href="/about" className="transition hover:text-[var(--cv-brand-a)]">About</Link>
-              <Link href="/stack" className="transition hover:text-[var(--cv-brand-a)]">Stack</Link>
               <Link href="/#pricing" className="transition hover:text-[var(--cv-brand-a)]">Pricing</Link>
             </div>
             <p style={{ color: "var(--cv-muted)" }}>Built for student confidence and parent clarity. 2026 CareerVerse.</p>
