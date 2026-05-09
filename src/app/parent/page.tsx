@@ -1,6 +1,7 @@
 "use client";
 import AuthGuard from "@/components/ui/AuthGuard";
 import Navbar from "@/components/layout/Navbar";
+import { useAuth } from "@/lib/AuthContext";
 import { motion } from "framer-motion";
 import { Activity, Award, GraduationCap, TrendingUp } from "lucide-react";
 
@@ -18,6 +19,9 @@ const HISTORY = [
 ];
 
 function ParentContent() {
+  const { user } = useAuth();
+  const firstName = user?.name ? user.name.split(" ")[0] : "Student";
+
   return (
     <main className="relative min-h-screen px-4 pb-20 pt-28">
       <Navbar />
@@ -25,7 +29,7 @@ function ParentContent() {
         <motion.header initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <div className="section-kicker">Parent Dashboard</div>
-            <h1 className="section-title">Aarav&apos;s Career Journey</h1>
+            <h1 className="section-title">{firstName}&apos;s Career Journey</h1>
             <p className="mt-2 text-sm" style={{ color: "var(--cv-text-secondary)" }}>Class 11, CBSE, joined January 2025</p>
           </div>
           <div className="glass rounded-2xl px-4 py-3 text-xs" style={{ color: "var(--cv-text-secondary)" }}>Last sync: today at 7:45 PM</div>
@@ -60,7 +64,7 @@ function ParentContent() {
           </article>
           <article className="glass-strong surface-ring rounded-3xl p-6 md:p-7">
             <div className="section-kicker">AI Recommendation</div>
-            <h2 className="mt-2 font-display text-2xl font-semibold md:text-3xl" style={{ color: "var(--cv-text)" }}>Aarav currently fits strategic, systems-thinking roles.</h2>
+            <h2 className="mt-2 font-display text-2xl font-semibold md:text-3xl" style={{ color: "var(--cv-text)" }}>{firstName} currently fits strategic, systems-thinking roles.</h2>
             <p className="mt-3 max-w-4xl text-sm leading-relaxed" style={{ color: "var(--cv-text-secondary)" }}>Based on 13 simulations, top alignment sits in Software Engineering (91%) and Product Management (87%). Suggested next step: explore blended CS + business tracks.</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {["IIT Computer Science", "BITS Pilani", "ISB Young Leaders", "Ashoka CS + Business"].map((item) => (

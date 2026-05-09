@@ -90,6 +90,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       return { ok: false, error: "Login failed" };
     } catch (err: any) {
+      if (err.message?.includes("fetch")) {
+        return { ok: false, error: "Connection error: Please check your .env.local file for correct Supabase URL and Keys." };
+      }
       return { ok: false, error: err.message || "Network error. Please try again." };
     }
   }, []);
@@ -115,6 +118,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       return { ok: false, error: "Signup failed" };
     } catch (err: any) {
+      if (err.message?.includes("fetch")) {
+        return { ok: false, error: "Connection error: Please check your .env.local file for correct Supabase URL and Keys." };
+      }
       return { ok: false, error: err.message || "Network error. Please try again." };
     }
   }, []);

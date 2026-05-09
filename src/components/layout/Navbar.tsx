@@ -10,7 +10,6 @@ const LINKS = [
   { href: "/careers", label: "Careers" },
   { href: "/parent", label: "Parents" },
   { href: "/about", label: "About" },
-  { href: "/stack", label: "Stack" },
 ];
 
 export default function Navbar() {
@@ -20,7 +19,8 @@ export default function Navbar() {
   return (
     <motion.nav initial={{ y: -36, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.45, ease: "easeOut" }}
       className="fixed left-1/2 top-4 z-50 w-[96%] max-w-6xl -translate-x-1/2">
-      <div className="glass-strong surface-ring rounded-2xl px-3.5 py-3 md:px-5">
+      <motion.div className="glass-strong surface-ring shimmer-border animate-border-glow rounded-2xl px-3.5 py-3 md:px-5"
+        whileHover={{ boxShadow: "0 0 30px var(--cv-glow-strong)" }}>
         <div className="flex items-center justify-between gap-2 md:gap-3">
           <Link href="/" className="flex min-w-0 items-center gap-2.5">
             <motion.div className="animate-pulse-glow flex h-9 w-9 items-center justify-center rounded-xl bg-grad-purple text-white"
@@ -98,7 +98,7 @@ export default function Navbar() {
               style={{ border: "1px solid var(--cv-badge-border)", background: "var(--cv-badge-bg)", color: "var(--cv-text-secondary)" }}>{item.label}</Link>
           ))}
         </div>
-      </div>
+      </motion.div>
     </motion.nav>
   );
 }
