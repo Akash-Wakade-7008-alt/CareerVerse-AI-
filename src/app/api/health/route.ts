@@ -5,7 +5,7 @@ const PLACEHOLDER_SUPABASE_KEY = "placeholder-key";
 
 export async function GET() {
   const hasGemini = Boolean(process.env.GEMINI_API_KEY);
-  const hasGroq = Boolean(process.env.GROQ_API_KEY);
+  const hasGroq = Boolean(process.env.GROQ_API_SECRET_KEY);
 
   const hasSupabase =
     Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&

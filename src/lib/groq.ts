@@ -1,6 +1,6 @@
 import Groq from "groq-sdk";
 
-const apiKey = process.env.GROQ_API_KEY;
+const apiKey = process.env.GROQ_API_SECRET_KEY;
 
 export const groqClient = apiKey ? new Groq({ apiKey }) : null;
 
@@ -138,6 +138,48 @@ Return STRICT JSON only (no markdown, no backticks):
     return JSON.parse(text.replace(/```json|```/g, "").trim());
   } catch (err) {
     console.error("Groq report error:", err);
+    return null;
+  }
+}
+
+export async function generateCareerOverview(
+  careerId: string,
+  quizAnswer: string
+) {
+  if (!groqClient) return null;
+
+  const careerLabel = CAREER_LABELS[careerId] ?? careerId;
+
+  const prompt = `You are an expert career coach. The student is about to start a simulation for the "${careerLabel}" track.
+To assess their knowledge, they were asked: "In your own words, what does a ${careerLabel} do on a daily basis?"
+
+Their answer: "${quizAnswer}"
+
+First, assess their knowledge level based on their answer (Beginner, Intermediate, Advanced, Expert).
+Then, write a highly personalized, 3-paragraph overview of the ${careerLabel} role that bridges the gap between what they think they know, and the reality of the role.
+If they are a beginner, explain the basics clearly. If they are advanced, focus on the high-level strategy and challenges.
+
+Return STRICT JSON only (no markdown, no backticks):
+{
+  "knowledgeLevel": "Beginner", // or Intermediate, Advanced, Expert
+  "overview": "Your personalized 3-paragraph overview..."
+}`;
+
+  try {
+    const completion = await groqClient.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7,
+      max_tokens: 600,
+      response_format: { type: "json_object" },
+    });
+
+    const text = completion.choices[0]?.message?.content;
+    if (!text) return null;
+
+    return JSON.parse(text.replace(/```json|```/g, "").trim());
+  } catch (err) {
+    console.error("Groq overview error:", err);
     return null;
   }
 }
