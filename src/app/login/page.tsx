@@ -1,7 +1,7 @@
 "use client";
 import { useAuth } from "@/lib/AuthContext";
 import { motion } from "framer-motion";
-import { ArrowRight, Eye, EyeOff, LogIn, Lock } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, LogIn, Lock, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,7 +25,10 @@ export default function LoginPage() {
         <div className="h-[500px] w-[500px] animate-rotate-slow rounded-full" style={{ border: "1px solid var(--cv-border)" }} />
         <div className="absolute h-[350px] w-[350px] animate-rotate-slow rounded-full" style={{ border: "1px solid var(--cv-border-strong)", animationDirection: "reverse", animationDuration: "25s" }} />
       </div>
-      <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} className="glass-strong surface-ring w-full max-w-md rounded-3xl p-8">
+      <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} className="relative glass-strong surface-ring w-full max-w-md rounded-3xl p-8">
+        <button onClick={() => router.push("/")} className="absolute right-4 top-4 rounded-full p-2 transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: "var(--cv-text-secondary)" }}>
+          <X size={20} />
+        </button>
         <div className="mb-6 text-center">
           <motion.div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-grad-purple text-white animate-pulse-glow"
             whileHover={{ rotate: 15 }}>

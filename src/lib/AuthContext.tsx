@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { supabase } from "./supabase";
 
 export interface AuthUser {
   userId: string;
@@ -30,77 +31,96 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-const STORAGE_KEY = "cv_auth_user";
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user from localStorage on mount
+  // Load user from Supabase session on mount and listen for changes
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored) as AuthUser;
-        if (parsed.userId && parsed.email) {
-          setUser(parsed);
+    const initSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+          setUser({
+            userId: session.user.id,
+            email: session.user.email || "",
+            name: session.user.user_metadata?.name || "User",
+          });
         }
+      } catch (error) {
+        console.error("Session fetch error:", error);
+      } finally {
+        setLoading(false);
       }
-    } catch {
-      // ignore parse errors
-    }
-    setLoading(false);
+    };
+
+    void initSession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.user) {
+        setUser({
+          userId: session.user.id,
+          email: session.user.email || "",
+          name: session.user.user_metadata?.name || "User",
+        });
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
 
-      const json = await res.json();
-
-      if (!json.ok) {
-        return { ok: false, error: json.error || "Login failed" };
+      if (error) {
+        return { ok: false, error: error.message };
       }
 
-      const authUser: AuthUser = json.user;
-      setUser(authUser);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(authUser));
-      return { ok: true };
-    } catch {
-      return { ok: false, error: "Network error. Please try again." };
+      if (data.user) {
+        return { ok: true };
+      }
+      return { ok: false, error: "Login failed" };
+    } catch (err: any) {
+      return { ok: false, error: err.message || "Network error. Please try again." };
     }
   }, []);
 
   const signup = useCallback(async (name: string, email: string, password: string) => {
     try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            name,
+          },
+        },
       });
 
-      const json = await res.json();
-
-      if (!json.ok) {
-        return { ok: false, error: json.error || "Signup failed" };
+      if (error) {
+        return { ok: false, error: error.message };
       }
 
-      const authUser: AuthUser = json.user;
-      setUser(authUser);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(authUser));
-      return { ok: true };
-    } catch {
-      return { ok: false, error: "Network error. Please try again." };
+      if (data.user) {
+        return { ok: true };
+      }
+      return { ok: false, error: "Signup failed" };
+    } catch (err: any) {
+      return { ok: false, error: err.message || "Network error. Please try again." };
     }
   }, []);
 
-  const logout = useCallback(() => {
-    setUser(null);
-    localStorage.removeItem(STORAGE_KEY);
+  const logout = useCallback(async () => {
+    await supabase.auth.signOut();
   }, []);
 
   return (

@@ -1,6 +1,5 @@
 "use client";
 import Navbar from "@/components/layout/Navbar";
-import StackStatusPanel from "@/components/simulation/StackStatusPanel";
 import { STACK_LAYERS } from "@/data/stack";
 import { motion } from "framer-motion";
 import { Braces, Cpu, Database, Sparkles } from "lucide-react";
@@ -30,12 +29,10 @@ export default function StackPage() {
                 </motion.div>
                 <h2 className="font-display text-xl font-semibold" style={{ color: "var(--cv-text)" }}>{layer.title}</h2>
                 <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--cv-text-secondary)" }}>{layer.detail}</p>
-                <div className="mt-4 rounded-xl px-3 py-2 text-xs" style={{ border: "1px solid var(--cv-badge-border)", background: "var(--cv-badge-bg)", color: "var(--cv-badge-text)" }}>{layer.tech}</div>
               </motion.article>
             );
           })}
         </section>
-        <div className="mt-5"><StackStatusPanel /></div>
       </div>
     </main>
   );
