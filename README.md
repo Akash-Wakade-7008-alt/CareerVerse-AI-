@@ -2,7 +2,7 @@
 
 CareerVerse AI is a Next.js 16 app that helps students experience careers through AI simulations, skill analytics, and report dashboards.
 
-## Stack##
+## Stack#########
 
 - Next.js 16 (App Router)
 - TypeScript
