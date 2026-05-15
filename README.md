@@ -49,109 +49,6 @@ CareerVerse AI bridges the gap between:
 
 ---
 
-# ✨ Core Features
-
-## 🎮 AI Career Simulations
-
-Experience realistic career workflows with AI-generated scenarios.
-
-### Available Career Tracks
-
-- Software Engineer
-- Product Manager
-- Marketing Manager
-- Data Analyst
-- Designer
-
----
-
-## 🧠 Intelligent Decision Engine
-
-Users make critical decisions during simulations and receive:
-
-- Behavioral analysis
-- Skill alignment
-- Decision quality insights
-- Career compatibility scoring
-
----
-
-## 📊 AI Career Reports
-
-Generate personalized reports including:
-
-- Strengths & weaknesses
-- Skill maps
-- Career fit analysis
-- Growth recommendations
-
----
-
-## 👨‍👩‍👧 Parent Dashboard
-
-A dedicated interface helping parents:
-
-- Understand student strengths
-- Analyze career readiness
-- Monitor progress
-
----
-
-## ⚡ Modern UI/UX
-
-- Smooth animations
-- Futuristic dark theme
-- Responsive design
-- Interactive transitions
-- Professional landing pages
-
----
-
-# 🧭 Application Routes
-
-| Route                  | Description               |
-| ---------------------- | ------------------------- |
-| `/`                    | Home page                 |
-| `/careers`             | Career simulation library |
-| `/simulation/[career]` | Interactive simulation    |
-| `/report`              | AI-generated report       |
-| `/parent`              | Parent dashboard          |
-| `/about`               | Product vision            |
-| `/stack`               | Tech architecture         |
-| `/api/simulate`        | Simulation API            |
-| `/api/report`          | Report API                |
-| `/api/health`          | Runtime health            |
-
----
-
-# 🏗️ Tech Stack
-
-## Frontend
-
-- Next.js 16
-- React
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-
----
-
-## Backend
-
-- Next.js API Routes
-- Gemini API
-- Supabase
-
----
-
-## AI & Analytics
-
-- Google Gemini API
-- AI Prompt Engineering
-- Simulation Decision Trees
-- Career Recommendation Logic
-
----
 
 # 📂 Project Structure
 
@@ -303,6 +200,110 @@ npx next build --webpack
 | Vercel     | Frontend + Next.js hosting |
 | Supabase   | Database & Authentication  |
 | Gemini API | AI simulation engine       |
+
+---
+
+# ✨ Core Features
+
+## 🎮 AI Career Simulations
+
+Experience realistic career workflows with AI-generated scenarios.
+
+### Available Career Tracks
+
+- Software Engineer
+- Product Manager
+- Marketing Manager
+- Data Analyst
+- Designer
+
+---
+
+## 🧠 Intelligent Decision Engine
+
+Users make critical decisions during simulations and receive:
+
+- Behavioral analysis
+- Skill alignment
+- Decision quality insights
+- Career compatibility scoring
+
+---
+
+## 📊 AI Career Reports
+
+Generate personalized reports including:
+
+- Strengths & weaknesses
+- Skill maps
+- Career fit analysis
+- Growth recommendations
+
+---
+
+## 👨‍👩‍👧 Parent Dashboard
+
+A dedicated interface helping parents:
+
+- Understand student strengths
+- Analyze career readiness
+- Monitor progress
+
+---
+
+## ⚡ Modern UI/UX
+
+- Smooth animations
+- Futuristic dark theme
+- Responsive design
+- Interactive transitions
+- Professional landing pages
+
+---
+
+# 🧭 Application Routes
+
+| Route                  | Description               |
+| ---------------------- | ------------------------- |
+| `/`                    | Home page                 |
+| `/careers`             | Career simulation library |
+| `/simulation/[career]` | Interactive simulation    |
+| `/report`              | AI-generated report       |
+| `/parent`              | Parent dashboard          |
+| `/about`               | Product vision            |
+| `/stack`               | Tech architecture         |
+| `/api/simulate`        | Simulation API            |
+| `/api/report`          | Report API                |
+| `/api/health`          | Runtime health            |
+
+---
+
+# 🏗️ Tech Stack
+
+## Frontend
+
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+
+---
+
+## Backend
+
+- Next.js API Routes
+- Gemini API
+- Supabase
+
+---
+
+## AI & Analytics
+
+- Google Gemini API
+- AI Prompt Engineering
+- Simulation Decision Trees
+- Career Recommendation Logic
 
 ---
 
