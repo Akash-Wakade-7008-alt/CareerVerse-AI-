@@ -2,10 +2,6 @@
 
 > Future decisions should feel **data-backed, not random.**
 
-<p align="center">
-  <img src="./assets/hero-preview.png" alt="CareerVerse AI Banner" width="100%" />
-</p>
-
 ---
 
 # 🌌 Overview
