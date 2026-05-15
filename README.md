@@ -28,109 +28,67 @@ and
 
 ---
 
-# ✨ Core Features
-
-## 🎮 AI Career Simulations
-Experience realistic career workflows with AI-generated scenarios.
-
-Examples:
-- Software Engineer
-- Product Manager
-- Marketing Manager
-- Designer
-- Data Analyst
-
----
-
-## 🧠 Intelligent Decision Engine
-Users make critical decisions during simulations and receive:
-- behavioral analysis
-- skill alignment
-- decision quality insights
-- career compatibility scoring
-
----
-
-## 📊 AI Career Reports
-Generate personalized reports including:
-- strengths & weaknesses
-- skill maps
-- career fit analysis
-- growth recommendations
-
----
-
-## 👨‍👩‍👧 Parent Dashboard
-A dedicated interface helping parents:
-- understand student strengths
-- analyze career readiness
-- monitor progress
-
----
-
-## ⚡ Modern UI/UX
-- Smooth animations
-- Futuristic dark theme
-- Responsive design
-- Interactive transitions
-- Professional landing pages
-
----
-
 # 🖼️ Project Preview
 
 ---
 
 ## 🌌 Landing Page
 
-![Landing Page](./assets/landing-page.png)
+![Landing Page](./images/Preview-1.png)
 
 ---
 
 ## 🎯 Career Simulation Library
 
-![Career Library](./assets/career-library.png)
+![Career Library](./images/Preview-2.png)
 
 ---
+# 📂 Project Structure
 
-# 🏗️ Tech Stack
-
-## Frontend
-- Next.js 16
-- React
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-
-## Backend
-- Next.js API Routes
-- Gemini API
-- Supabase
-
-## AI & Data
-- Google Gemini API
-- AI Prompt Engineering
-- Simulation Decision Trees
-
+```bash
+CareerVerse-AI/
+│
+├── .agents/
+│   └── skills/
+│
+├── images/
+│
+├── src/
+│   ├── app/
+│   │   ├── careers/
+│   │   ├── simulation/
+│   │   ├── report/
+│   │   ├── parent/
+│   │   ├── about/
+│   │   ├── stack/
+│   │   └── api/
+│   │
+│   ├── components/
+│   │
+│   ├── lib/
+│   │
+│   ├── hooks/
+│   │
+│   ├── utils/
+│   │
+│   ├── types/
+│   │
+│   └── styles/
+│
+├── .gitignore
+├── AGENTS.md
+├── database.sql
+├── eslint.config.mjs
+├── next.config.ts
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── tailwind.config.ts
+├── tsconfig.json
+├── vercel.json
+└── README.md
+```
 ---
-
-# 🧭 Application Routes
-
-| Route | Description |
-|---|---|
-| `/` | Home page |
-| `/careers` | Career simulation library |
-| `/simulation/[career]` | Interactive simulation |
-| `/report` | AI-generated report |
-| `/parent` | Parent dashboard |
-| `/about` | Product vision |
-| `/stack` | Tech architecture |
-| `/api/simulate` | Simulation API |
-| `/api/report` | Report API |
-| `/api/health` | Runtime health |
-
----
-
 # ⚙️ Installation & Setup
 
 ## 1️⃣ Clone Repository
@@ -208,6 +166,94 @@ npm run lint
 ```bash
 npx next build --webpack
 ```
+---
+
+# 🧭 Application Routes
+
+| Route | Description |
+|---|---|
+| `/` | Home page |
+| `/careers` | Career simulation library |
+| `/simulation/[career]` | Interactive simulation |
+| `/report` | AI-generated report |
+| `/parent` | Parent dashboard |
+| `/about` | Product vision |
+| `/stack` | Tech architecture |
+| `/api/simulate` | Simulation API |
+| `/api/report` | Report API |
+| `/api/health` | Runtime health |
+
+---
+# ✨ Core Features
+
+## 🎮 AI Career Simulations
+Experience realistic career workflows with AI-generated scenarios.
+
+Examples:
+- Software Engineer
+- Product Manager
+- Marketing Manager
+- Designer
+- Data Analyst
+
+---
+
+## 🧠 Intelligent Decision Engine
+Users make critical decisions during simulations and receive:
+- behavioral analysis
+- skill alignment
+- decision quality insights
+- career compatibility scoring
+
+---
+
+## 📊 AI Career Reports
+Generate personalized reports including:
+- strengths & weaknesses
+- skill maps
+- career fit analysis
+- growth recommendations
+
+---
+
+## 👨‍👩‍👧 Parent Dashboard
+A dedicated interface helping parents:
+- understand student strengths
+- analyze career readiness
+- monitor progress
+
+---
+
+## ⚡ Modern UI/UX
+- Smooth animations
+- Futuristic dark theme
+- Responsive design
+- Interactive transitions
+- Professional landing pages
+
+---
+
+
+
+# 🏗️ Tech Stack
+
+## Frontend
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+
+## Backend
+- Next.js API Routes
+- Gemini API
+- Supabase
+
+## AI & Data
+- Google Gemini API
+- AI Prompt Engineering
+- Simulation Decision Trees
+
 
 ---
 
@@ -221,26 +267,6 @@ npx next build --webpack
 | Supabase | Database & auth |
 | Gemini API | AI simulation engine |
 
----
-
-# 📂 Project Structure
-
-```bash
-careerverse-ai/
-│
-├── app/
-├── components/
-├── lib/
-├── public/
-├── styles/
-├── api/
-├── hooks/
-├── utils/
-├── types/
-├── middleware.ts
-├── next.config.ts
-└── README.md
-```
 
 ---
 
@@ -295,11 +321,6 @@ Fork → Clone → Create Branch → Commit → Push → Pull Request
 
 ---
 
-# 📜 License
-
-This project is licensed under the MIT License.
-
----
 
 # 👨‍💻 Team
 
