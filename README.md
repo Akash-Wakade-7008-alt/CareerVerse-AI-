@@ -4,6 +4,7 @@
 
 ---
 
+
 # 🌌 Overview
 
 CareerVerse AI is an immersive AI-powered career simulation platform designed to help students explore future careers through real-world decision-making experiences.
@@ -21,6 +22,11 @@ CareerVerse AI bridges the gap between:
 > **“What students think a career is”**  
 and  
 > **“What the career actually feels like.”**
+
+---
+# 🖥️ Live Preview
+
+### 👉 **https://career-verse-ai.vercel.app/**
 
 ---
 
@@ -90,15 +96,28 @@ CareerVerse-AI/
 ## 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/your-username/careerverse-ai.git
+git clone https://github.com/Akash-Wakade-7008-alt/CareerVerse-AI-.git
 ```
+
+---
+
+## 📦 Or Download ZIP File
+
+Download the latest release:
+
+🔗 https://github.com/Akash-Wakade-7008-alt/CareerVerse-AI-/releases/download/careerVerseAI-v.1.0/CareerVerse-Ai.zip
+
+After downloading:
+
+1. Extract the ZIP file
+2. Open the folder in VS Code
 
 ---
 
 ## 2️⃣ Navigate Into Project
 
 ```bash
-cd careerverse-ai
+cd CareerVerse-AI-
 ```
 
 ---
@@ -147,15 +166,6 @@ http://localhost:3000
 
 ---
 
-# 🧪 Quality Checks
-
-## Lint
-
-```bash
-npm run lint
-```
-
----
 
 ## Production Build
 
@@ -320,9 +330,16 @@ Fork → Clone → Create Branch → Commit → Push → Pull Request
 
 # 👨‍💻 Team
 
-## Built during Hackathon 🚀
+## Built During the Hackathon 🚀
 
-Developed with passion to reimagine career guidance using AI.
+CareerVerse AI was collaboratively developed with passion and innovation to reimagine career guidance using AI.
+
+### Team Members
+- Akash Wakade
+- Sandeep Saha
+- Sagar Gupta
+
+Together, we worked on designing, developing, and building an AI-powered platform to help students explore careers through simulations, analytics, and personalized guidance.
 
 ---
 
