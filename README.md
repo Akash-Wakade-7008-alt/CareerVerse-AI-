@@ -4,7 +4,6 @@
 
 ---
 
-
 # 🌌 Overview
 
 CareerVerse AI is an immersive AI-powered career simulation platform designed to help students explore future careers through real-world decision-making experiences.
@@ -12,6 +11,7 @@ CareerVerse AI is an immersive AI-powered career simulation platform designed to
 Instead of reading static career descriptions, users **live a high-stakes workday simulation** powered by AI.
 
 Students can:
+
 - Experience real job scenarios
 - Make important career decisions
 - Analyze skill alignment
@@ -19,11 +19,13 @@ Students can:
 - Receive AI-generated career reports
 
 CareerVerse AI bridges the gap between:
+
 > **“What students think a career is”**  
-and  
+> and  
 > **“What the career actually feels like.”**
 
 ---
+
 # 🖥️ Live Preview
 
 ### 👉 **https://career-verse-ai.vercel.app/**
@@ -45,6 +47,111 @@ and
 ![Career Library](./images/Preview-2.png)
 
 ---
+
+# ✨ Core Features
+
+## 🎮 AI Career Simulations
+
+Experience realistic career workflows with AI-generated scenarios.
+
+### Available Career Tracks
+
+- Software Engineer
+- Product Manager
+- Marketing Manager
+- Data Analyst
+- Designer
+
+---
+
+## 🧠 Intelligent Decision Engine
+
+Users make critical decisions during simulations and receive:
+
+- Behavioral analysis
+- Skill alignment
+- Decision quality insights
+- Career compatibility scoring
+
+---
+
+## 📊 AI Career Reports
+
+Generate personalized reports including:
+
+- Strengths & weaknesses
+- Skill maps
+- Career fit analysis
+- Growth recommendations
+
+---
+
+## 👨‍👩‍👧 Parent Dashboard
+
+A dedicated interface helping parents:
+
+- Understand student strengths
+- Analyze career readiness
+- Monitor progress
+
+---
+
+## ⚡ Modern UI/UX
+
+- Smooth animations
+- Futuristic dark theme
+- Responsive design
+- Interactive transitions
+- Professional landing pages
+
+---
+
+# 🧭 Application Routes
+
+| Route                  | Description               |
+| ---------------------- | ------------------------- |
+| `/`                    | Home page                 |
+| `/careers`             | Career simulation library |
+| `/simulation/[career]` | Interactive simulation    |
+| `/report`              | AI-generated report       |
+| `/parent`              | Parent dashboard          |
+| `/about`               | Product vision            |
+| `/stack`               | Tech architecture         |
+| `/api/simulate`        | Simulation API            |
+| `/api/report`          | Report API                |
+| `/api/health`          | Runtime health            |
+
+---
+
+# 🏗️ Tech Stack
+
+## Frontend
+
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+
+---
+
+## Backend
+
+- Next.js API Routes
+- Gemini API
+- Supabase
+
+---
+
+## AI & Analytics
+
+- Google Gemini API
+- AI Prompt Engineering
+- Simulation Decision Trees
+- Career Recommendation Logic
+
+---
+
 # 📂 Project Structure
 
 ```bash
@@ -90,7 +197,9 @@ CareerVerse-AI/
 ├── vercel.json
 └── README.md
 ```
+
 ---
+
 # ⚙️ Installation & Setup
 
 ## 1️⃣ Clone Repository
@@ -166,100 +275,21 @@ http://localhost:3000
 
 ---
 
+# 🧪 Quality Checks
+
+## Lint
+
+```bash
+npm run lint
+```
+
+---
 
 ## Production Build
 
 ```bash
 npx next build --webpack
 ```
----
-
-# 🧭 Application Routes
-
-| Route | Description |
-|---|---|
-| `/` | Home page |
-| `/careers` | Career simulation library |
-| `/simulation/[career]` | Interactive simulation |
-| `/report` | AI-generated report |
-| `/parent` | Parent dashboard |
-| `/about` | Product vision |
-| `/stack` | Tech architecture |
-| `/api/simulate` | Simulation API |
-| `/api/report` | Report API |
-| `/api/health` | Runtime health |
-
----
-# ✨ Core Features
-
-## 🎮 AI Career Simulations
-Experience realistic career workflows with AI-generated scenarios.
-
-Examples:
-- Software Engineer
-- Product Manager
-- Marketing Manager
-- Designer
-- Data Analyst
-
----
-
-## 🧠 Intelligent Decision Engine
-Users make critical decisions during simulations and receive:
-- behavioral analysis
-- skill alignment
-- decision quality insights
-- career compatibility scoring
-
----
-
-## 📊 AI Career Reports
-Generate personalized reports including:
-- strengths & weaknesses
-- skill maps
-- career fit analysis
-- growth recommendations
-
----
-
-## 👨‍👩‍👧 Parent Dashboard
-A dedicated interface helping parents:
-- understand student strengths
-- analyze career readiness
-- monitor progress
-
----
-
-## ⚡ Modern UI/UX
-- Smooth animations
-- Futuristic dark theme
-- Responsive design
-- Interactive transitions
-- Professional landing pages
-
----
-
-
-
-# 🏗️ Tech Stack
-
-## Frontend
-- Next.js 16
-- React
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-
-## Backend
-- Next.js API Routes
-- Gemini API
-- Supabase
-
-## AI & Data
-- Google Gemini API
-- AI Prompt Engineering
-- Simulation Decision Trees
-
 
 ---
 
@@ -267,12 +297,11 @@ A dedicated interface helping parents:
 
 ## Recommended Platforms
 
-| Service | Usage |
-|---|---|
-| Vercel | Frontend + Next.js hosting |
-| Supabase | Database & auth |
-| Gemini API | AI simulation engine |
-
+| Service    | Usage                      |
+| ---------- | -------------------------- |
+| Vercel     | Frontend + Next.js hosting |
+| Supabase   | Database & Authentication  |
+| Gemini API | AI simulation engine       |
 
 ---
 
@@ -285,7 +314,7 @@ A dedicated interface helping parents:
 ✅ Beautiful futuristic UI  
 ✅ High scalability architecture  
 ✅ Portfolio-grade full-stack project  
-✅ Real EdTech startup potential  
+✅ Real EdTech startup potential
 
 ---
 
@@ -296,9 +325,10 @@ CareerVerse AI aims to solve one of the biggest problems students face:
 > Choosing careers blindly.
 
 The platform helps students make:
-- smarter decisions
-- data-backed choices
-- informed career commitments
+
+- Smarter decisions
+- Data-backed choices
+- Informed career commitments
 
 through immersive AI simulations.
 
@@ -327,7 +357,6 @@ Fork → Clone → Create Branch → Commit → Push → Pull Request
 
 ---
 
-
 # 👨‍💻 Team
 
 ## Built During the Hackathon 🚀
@@ -335,6 +364,7 @@ Fork → Clone → Create Branch → Commit → Push → Pull Request
 CareerVerse AI was collaboratively developed with passion and innovation to reimagine career guidance using AI.
 
 ### Team Members
+
 - Akash Wakade
 - Sandeep Saha
 - Sagar Gupta
@@ -349,7 +379,7 @@ If you like this project:
 
 🌟 Star the repository  
 🍴 Fork the project  
-📢 Share with others  
+📢 Share with others
 
 ---
 
